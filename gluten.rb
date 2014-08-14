@@ -1,55 +1,28 @@
-pizza = ["cheese", "gluten", "tomatoes"]
-pan_seared_scallops = ["scallops", "lemons", "pasta", "olive oil"]
-water = ["h", "h", "o"]
-crayon = ["wax", "rainbows"]
-
 
 class Person
-  attr_accessor :kind
-  def initialize(kind)
-    @kind = kind
-    @state = "hungry"
-  end
-  
-  def eat(food)
-    if @state == "hungry"
-      puts "THIS IS THE BEST FOOD EVER!"
-      puts "(#{@name} has eaten #{food})"
-    else
-      puts "You're stuffed"
-    end
-    self
-  end
-  
-  def full
-    @state = "full"
-  end
-  
-  def hungry
-    @state = "hungry"
-  end
+	def initialize(name, allergy)
+	    @stomach = [] 
+	    @allergy = allergy
+		@name = name
+	end
+	  
+	def eat(food)
+		food.each do |nom|
+			puts nom
+			@stomach += food
+			if @allergy.include?(nom)
+				puts "(Allergy Error! Going into shock! Vomiting! Get to hospital!)"
+				@stomach = []
+				#unless @alergy.match(food)
+				# else
+				# puts "(Alergy Error! Going into shock! Vomiting! Get to hospital!)"
+				# end
+				# self
+			end
+		end
+	end		
 end
-
-class Stomach < Person
-    @@banned_foods = /person|wax|rainbows|pizza|people|human|humans|woman|woman|children|child|baby|babies/i
-    def self.banned_foods
-    	@@banned_foods
-    end
-    def initialize(age, gender, name)
-        # call the super initialize
-        super("person")
-        @age = age
-        @gender = gender
-        @name = name
-    end
-
-    # stop cannibalism!
-    def eat(food)
-      unless @@banned_foods.match(food)
-        super(food)
-      else
-        puts "(Alergy Error! Going into shock! Vomiting! Get to hospital!)"
-      end
-      self
-    end
-end
+Todd = Person.new("Todd", ["gluten", "juice"])
+p Todd
+Todd.eat(["juice", "water"])
+p Todd
